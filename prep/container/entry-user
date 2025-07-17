@@ -96,6 +96,8 @@ then
       --define "_gpg_name 70E4925D5082A13835293254FCA368738AB65C0C" \
       --define "_gpg_sign_cmd_extra_args --pinentry-mode loopback --passphrase-file /sign/DOSS/gpg-passphrase"
     echo $?
+    gpg --export -a FCA368738AB65C0C > pubkey.asc
+    rpm --import pubkey.asc
     rpm -qp --qf '%{SIGPGP:pgpsig}\n' /sign/I2util-5.2.0-*.rpm
 
     rpm --checksig /sign/I2util-5.2.0-0.20250715140209.el9.x86_64.rpm
