@@ -59,6 +59,7 @@ do
 
 	--passphrase)
 	    PASSPHRASE=$1
+	    cat "$PASSPHRASE"
 	    shift
 	    ;;
 
@@ -173,7 +174,7 @@ fi
 
 if [ -z "${CONTAINER}" ]
 then
-    CONTAINER="ghcr.io/perfsonar/docker-oneshot-signer/${REPO_TYPE}:latest"
+    CONTAINER="ghcr.io/cs1867/docker-oneshot-signer/${REPO_TYPE}:latest"
     PULL_ARG="--pull always"
 else
     PULL_ARG="--pull never"
