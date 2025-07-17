@@ -96,7 +96,18 @@ then
       --define "_gpg_name 70E4925D5082A13835293254FCA368738AB65C0C" \
       --define "_gpg_sign_cmd_extra_args --pinentry-mode loopback --passphrase-file /sign/DOSS/gpg-passphrase"
     echo $?
+    rpm -qp --qf '%{SIGPGP:pgpsig}\n' /sign/I2util-5.2.0-*.rpm
+
     rpm --checksig /sign/I2util-5.2.0-0.20250715140209.el9.x86_64.rpm
+
+    echo "test" > /tmp/test.txt
+    gpg --batch --yes --pinentry-mode loopback \
+     --passphrase-file /sign/DOSS/gpg-passphrase \
+     -u 70E4925D5082A13835293254FCA368738AB65C0C \
+      --output /tmp/test.txt.gpg --sign /tmp/test.txt
+
+    echo "GPG SIGN EXIT CODE: $?"
+    ls -l /tmp/test.txt.gpg
      
     #set -x
     # PORT: xargs -0 -r is GNU-specific.
