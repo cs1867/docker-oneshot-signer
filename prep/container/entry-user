@@ -96,18 +96,18 @@ then
       --define "_gpg_name 70E4925D5082A13835293254FCA368738AB65C0C" \
       --define "_gpg_sign_cmd_extra_args --pinentry-mode loopback --passphrase-file /sign/DOSS/gpg-passphrase"
     echo $?
-    rpm --checksig /sign/I2util*.rpm
-
-    set -x
+    rpm --checksig /sign/I2util-5.2.0-0.20250715140209.el9.x86_64.rpm
+     
+    #set -x
     # PORT: xargs -0 -r is GNU-specific.
-    find "${SIGN}" -name '*.rpm' -print0 \
-	| xargs -0 -r ${RPM} \
-		--define "_gpgbin $(type -p gpg)" \
-		--define "_gpg_path ${GNUPGHOME}" \
-		--define "_gpg_name ${KEY_NAME}" \
-		--define "_gpg_sign_cmd_extra_args  --pinentry-mode loopback  --passphrase-file ${PASSPHRASE_FILE}" \
-		--addsign
-    set +x
+    #jfind "${SIGN}" -name '*.rpm' -print0 \
+#j	| xargs -0 -r ${RPM} \
+#j		--define "_gpgbin $(type -p gpg)" \
+#j		--define "_gpg_path ${GNUPGHOME}" \
+#j		--define "_gpg_name ${KEY_NAME}" \
+#j		--define "_gpg_sign_cmd_extra_args  --pinentry-mode loopback  --passphrase-file ${PASSPHRASE_FILE}" \
+#j		--addsign
+ #j   set +x
     # TODO: Does the repo data need to be rebuilt after the files are changed?
 
 
