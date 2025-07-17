@@ -148,6 +148,7 @@ fi
 SECRET_KEY_FILE="${WORK}/gpg-secret-key"
 touch "${SECRET_KEY_FILE}"
 chmod 600 "${SECRET_KEY_FILE}"
+echo "export secret-key"
 gpg --export-secret-key -a --pinentry-mode loopback  --passphrase-file "${PASSPHRASE_FILE}" > "${SECRET_KEY_FILE}"
 
 
