@@ -97,21 +97,11 @@ then
       --define "_gpg_sign_cmd_extra_args --pinentry-mode loopback --passphrase-file /sign/DOSS/gpg-passphrase"
     echo $?
     gpg --export -a FCA368738AB65C0C > pubkey.asc
-    rpm --import pubkey.asc
+    sudo rpm --import pubkey.asc
     rpm -qp --qf '%{SIGPGP:pgpsig}\n' /sign/I2util-5.2.0-*.rpm
 
     rpm --checksig /sign/I2util-5.2.0-0.20250715140209.el9.x86_64.rpm
 
-    echo "test" > /tmp/test.txt
-    gpg --batch --yes --pinentry-mode loopback \
-     --passphrase-file /sign/DOSS/gpg-passphrase \
-     -u 70E4925D5082A13835293254FCA368738AB65C0C \
-      --output /tmp/test.txt.gpg --sign /tmp/test.txt
-
-    echo "GPG SIGN EXIT CODE: $?"
-    ls -l /tmp/test.txt.gpg
-     
-    #set -x
     # PORT: xargs -0 -r is GNU-specific.
     #jfind "${SIGN}" -name '*.rpm' -print0 \
 #j	| xargs -0 -r ${RPM} \
@@ -120,7 +110,6 @@ then
 #j		--define "_gpg_name ${KEY_NAME}" \
 #j		--define "_gpg_sign_cmd_extra_args  --pinentry-mode loopback  --passphrase-file ${PASSPHRASE_FILE}" \
 #j		--addsign
- #j   set +x
     # TODO: Does the repo data need to be rebuilt after the files are changed?
 
 
