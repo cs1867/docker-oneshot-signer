@@ -16,7 +16,6 @@ env:
   # github.repository as <account>/<repo>
   IMAGE_BASE: ${{ github.repository }}
 
-
 jobs:
   build:
     # Iterates through each OS using a matrix strategy
