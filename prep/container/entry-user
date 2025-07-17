@@ -82,6 +82,13 @@ then
     ${RPM} --initdb
     ${RPM} --import "${PUBLIC_KEY_FILE}"
     rm -rf "${PUBLIC_KEY_FILE}"
+    echo "==> RPM binary: ${RPM}"
+    echo "==> GPG binary: $(type -p gpg)"
+    echo "==> GPG home: ${GNUPGHOME}"
+    echo "==> GPG key: ${KEY_NAME}"
+    echo "==> Passphrase file: ${PASSPHRASE_FILE}"
+    echo "==> RPMs to be signed:"
+    find "${SIGN}" -name '*.rpm'
 
     # PORT: xargs -0 -r is GNU-specific.
     find "${SIGN}" -name '*.rpm' -print0 \

@@ -4,6 +4,11 @@
 # business and exit.
 #
 
+set -e
+
+echo "==> Starting entry script"
+echo "SIGN directory: ${SIGN}"
+
 die()
 {
     echo "$@" 1>&2
