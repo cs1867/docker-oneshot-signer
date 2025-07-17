@@ -40,6 +40,9 @@ self_help()
 # Gargle the arguments
 
 KEYRING_DIR="${HOME}/.gnupg"
+
+ls $KEYRING_DIR
+
 PASSPHRASE=
 while echo "$1" | grep -E -q -e '^--'
 do
@@ -58,6 +61,7 @@ do
 	    ;;
 
 	--passphrase)
+            echo "read passphrase"
 	    PASSPHRASE=$1
 	    cat "$PASSPHRASE"
 	    shift
