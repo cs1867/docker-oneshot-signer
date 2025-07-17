@@ -89,7 +89,7 @@ then
     echo "==> Passphrase file: ${PASSPHRASE_FILE}"
     echo "==> RPMs to be signed:"
     find "${SIGN}" -name '*.rpm'
-
+    set -x
     # PORT: xargs -0 -r is GNU-specific.
     find "${SIGN}" -name '*.rpm' -print0 \
 	| xargs -0 -r ${RPM} \
@@ -98,7 +98,7 @@ then
 		--define "_gpg_name ${KEY_NAME}" \
 		--define "_gpg_sign_cmd_extra_args  --pinentry-mode loopback  --passphrase-file ${PASSPHRASE_FILE}" \
 		--addsign
-
+    set +x
     # TODO: Does the repo data need to be rebuilt after the files are changed?
 
 
