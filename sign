@@ -135,7 +135,6 @@ chmod 600 "${PASSPHRASE_FILE}"
 cat "${PASSPHRASE}" > "${PASSPHRASE_FILE}"
 cat "${PASSPHRASE}"
 ls -al "${PASSPHRASE}"
-echo "Reached here" && exit 0
 
 
 
