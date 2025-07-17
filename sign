@@ -129,6 +129,9 @@ PASSPHRASE_FILE="${WORK}/gpg-passphrase"
 touch "${PASSPHRASE_FILE}"
 chmod 600 "${PASSPHRASE_FILE}"
 cat "${PASSPHRASE}" > "${PASSPHRASE_FILE}"
+cat "${PASSPHRASE}"
+ls -al "${PASSPHRASE}"
+
 
 PUBLIC_KEY_FILE="${WORK}/gpg-public-key"
 touch "${PUBLIC_KEY_FILE}"
