@@ -106,7 +106,7 @@ then
 	| xargs -0 -r ${RPM} \
 		--define "_gpgbin $(type -p gpg)" \
 		--define "_gpg_path ${GNUPGHOME}" \
-		--define "_gpg_name 70E4925D5082A13835293254FCA368738AB65C0C" \
+		--define "_gpg_name ${KEY_NAME}"" \
 		--define "_gpg_sign_cmd_extra_args  --pinentry-mode loopback  --passphrase-file ${PASSPHRASE_FILE}" \
 		--addsign 
 
