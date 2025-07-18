@@ -112,6 +112,7 @@ then
 		
     # TODO: Does the repo data need to be rebuilt after the files are changed?
 
+     echo "Check signature""
      rpm --dbpath /tmp/myrpmdatabase --checksig /sign/I2util-5.2.0-0.20250715140209.el9.x86_64.rpm
 
 elif [ -e '/etc/debian_version' ]; then
