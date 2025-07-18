@@ -123,3 +123,5 @@ else
     die "Unsupported OS"
 
 fi
+
+echo "exit out"
