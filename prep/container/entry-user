@@ -104,12 +104,9 @@ then
 
     # TODO: Does the repo data need to be rebuilt after the files are changed?
 
-     echo "KEY NAME ID is: ${KEY_NAME}"
-     echo "export and import pub key"
-     SHORT_ID="${KEY_NAME: -16}"
 
-     echo "Short key ID is: $SHORT_ID"
-     gpg --export -a "$SHORT_ID" > pubkey.asc
+     echo "publix key ID is: ${PUBLIC_KEY_FILE}"
+     gpg --export -a "${PUBLIC_KEY_FILE}" > pubkey.asc
      mkdir -p /tmp/myrpmdatabase
      rpm --dbpath /tmp/myrpmdatabase --import pubkey.asc
      echo "Check signature"
