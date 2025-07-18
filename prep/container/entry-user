@@ -106,14 +106,17 @@ then
 	| xargs -0 -r ${RPM} \
 		--define "_gpgbin $(type -p gpg)" \
 		--define "_gpg_path ${GNUPGHOME}" \
-		--define "_gpg_name ${KEY_NAME}"" \
+		--define "_gpg_name ${KEY_NAME}" \
 		--define "_gpg_sign_cmd_extra_args  --pinentry-mode loopback  --passphrase-file ${PASSPHRASE_FILE}" \
 		--addsign 
 
     # TODO: Does the repo data need to be rebuilt after the files are changed?
 
      echo "export and import pub key"
-     gpg --export -a FCA368738AB65C0C > pubkey.asc
+     SHORT_ID="${KEY_NAME: -16}"
+
+     echo "Short key ID is: $SHORT_ID"
+     gpg --export -a "$SHORT_ID" > pubkey.asc
      mkdir -p /tmp/myrpmdatabase
      rpm --dbpath /tmp/myrpmdatabase --import pubkey.asc
      echo "Check signature"
