@@ -82,7 +82,6 @@ then
     ${RPM} --initdb
     ${RPM} --import "${PUBLIC_KEY_FILE}"
 
-   ## rm -rf "${PUBLIC_KEY_FILE}"
 
     echo "==> RPM binary: ${RPM}"
     echo "==> GPG binary: $(type -p gpg)"
@@ -111,7 +110,7 @@ then
      mkdir -p /tmp/myrpmdatabase
      rpm --dbpath /tmp/myrpmdatabase --import pubkey.asc
      echo "Check signature"
-     rpm --dbpath /tmp/myrpmdatabase --checksig /sign/I2util-5.2.0-0.20250715140209.el9.x86_64.rpm
+     rpm --dbpath /tmp/myrpmdatabase --checksig /sign/*.rpm
 
 elif [ -e '/etc/debian_version' ]; then
 
