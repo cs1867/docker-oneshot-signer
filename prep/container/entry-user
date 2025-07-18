@@ -104,9 +104,10 @@ then
 
     # TODO: Does the repo data need to be rebuilt after the files are changed?
 
+     echo "Public key content:"
+     cat "${PUBLIC_KEY_FILE}"
 
-     echo "publix key ID is: ${PUBLIC_KEY_FILE}"
-     gpg --export -a "${PUBLIC_KEY_FILE}" > pubkey.asc
+     gpg --export -a "FCA368738AB65C0C" > pubkey.asc
      mkdir -p /tmp/myrpmdatabase
      rpm --dbpath /tmp/myrpmdatabase --import pubkey.asc
      echo "Check signature"
