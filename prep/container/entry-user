@@ -81,7 +81,13 @@ then
     ${GPG} --export -a "${KEY_NAME}" > "${PULIC_KEY_FILE}"
     ${RPM} --initdb
     ${RPM} --import "${PUBLIC_KEY_FILE}"
-    rm -rf "${PUBLIC_KEY_FILE}"
+    gpg --list-secret-keys --with-colons | awk -F: '
+      BEGIN { wanted="Test User" }
+      $1 == "uid" && $10 ~ wanted { uid=1 }
+      $1 == "fpr" && uid { print $10; exit }
+      'm -rf "${PUBLIC_KEY_FILE}"
+    '
+
     echo "==> RPM binary: ${RPM}"
     echo "==> GPG binary: $(type -p gpg)"
     echo "==> GPG home: ${GNUPGHOME}"
@@ -90,16 +96,6 @@ then
     echo "==> RPMs to be signed:"
     find "${SIGN}" -name '*.rpm'
     echo "run addsign"
-    #rpm --addsign /sign/I2util-5.2.0-0.20250715140209.el9.x86_64.rpm \
-    #  --define "_gpgbin /usr/bin/gpg" \
-    #  --define "_gpg_path ${GNUPGHOME}" \
-    #  --define "_gpg_name 70E4925D5082A13835293254FCA368738AB65C0C" \
-    #  --define "_gpg_sign_cmd_extra_args --pinentry-mode loopback --passphrase-file /sign/DOSS/gpg-passphrase"
-
-    echo "export and import pub key"
-    gpg --export -a FCA368738AB65C0C > pubkey.asc
-    mkdir -p /tmp/myrpmdatabase
-    rpm --dbpath /tmp/myrpmdatabase --import pubkey.asc
 
     # PORT: xargs -0 -r is GNU-specific.
     find "${SIGN}" -name '*.rpm' -print0 \
@@ -112,6 +108,10 @@ then
 
     # TODO: Does the repo data need to be rebuilt after the files are changed?
 
+     echo "export and import pub key"
+     gpg --export -a FCA368738AB65C0C > pubkey.asc
+     mkdir -p /tmp/myrpmdatabase
+     rpm --dbpath /tmp/myrpmdatabase --import pubkey.asc
      echo "Check signature"
      rpm --dbpath /tmp/myrpmdatabase --checksig /sign/I2util-5.2.0-0.20250715140209.el9.x86_64.rpm
 
