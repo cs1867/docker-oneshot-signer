@@ -100,21 +100,18 @@ then
     gpg --export -a FCA368738AB65C0C > pubkey.asc
     mkdir -p /tmp/myrpmdatabase
     rpm --dbpath /tmp/myrpmdatabase --import pubkey.asc
-    rpm --dbpath /tmp/myrpmdatabase --checksig /sign/I2util-5.2.0-0.20250715140209.el9.x86_64.rpm
-    rpm -qp --qf '%{SIGPGP:pgpsig}\n' /sign/I2util-5.2.0-*.rpm
-
-    rpm --checksig /sign/I2util-5.2.0-0.20250715140209.el9.x86_64.rpm
 
     # PORT: xargs -0 -r is GNU-specific.
-    #jfind "${SIGN}" -name '*.rpm' -print0 \
-#j	| xargs -0 -r ${RPM} \
-#j		--define "_gpgbin $(type -p gpg)" \
-#j		--define "_gpg_path ${GNUPGHOME}" \
-#j		--define "_gpg_name ${KEY_NAME}" \
-#j		--define "_gpg_sign_cmd_extra_args  --pinentry-mode loopback  --passphrase-file ${PASSPHRASE_FILE}" \
-#j		--addsign
+    find "${SIGN}" -name '*.rpm' -print0 \
+	| xargs -0 -r ${RPM} \
+		--define "_gpgbin $(type -p gpg)" \
+		--define "_gpg_path ${GNUPGHOME}" \
+		--define "_gpg_name ${KEY_NAME}" \
+		--define "_gpg_sign_cmd_extra_args  --pinentry-mode loopback  --passphrase-file ${PASSPHRASE_FILE}" \
+		--addsign
     # TODO: Does the repo data need to be rebuilt after the files are changed?
 
+     rpm --checksig /sign/I2util-5.2.0-0.20250715140209.el9.x86_64.rpm
 
 elif [ -e '/etc/debian_version' ]; then
 
