@@ -92,7 +92,7 @@ then
     echo "run addsign"
     rpm --addsign /sign/I2util-5.2.0-0.20250715140209.el9.x86_64.rpm \
       --define "_gpgbin /usr/bin/gpg" \
-      -define "_gpg_path ${GNUPGHOME}" \
+      --define "_gpg_path ${GNUPGHOME}" \
       --define "_gpg_name 70E4925D5082A13835293254FCA368738AB65C0C" \
       --define "_gpg_sign_cmd_extra_args --pinentry-mode loopback --passphrase-file /sign/DOSS/gpg-passphrase"
 
