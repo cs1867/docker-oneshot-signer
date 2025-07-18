@@ -82,7 +82,7 @@ then
     ${RPM} --initdb
     ${RPM} --import "${PUBLIC_KEY_FILE}"
 
-    rm -rf "${PUBLIC_KEY_FILE}"
+   ## rm -rf "${PUBLIC_KEY_FILE}"
 
     echo "==> RPM binary: ${RPM}"
     echo "==> GPG binary: $(type -p gpg)"
