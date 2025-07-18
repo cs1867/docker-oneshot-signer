@@ -82,14 +82,6 @@ then
     ${RPM} --initdb
     ${RPM} --import "${PUBLIC_KEY_FILE}"
 
-    GPG_NAME=$(
-      gpg --list-secret-keys --with-colons | awk -F: '
-        BEGIN { wanted="Test User"; uid=0 }
-        $1 == "uid" && $10 ~ wanted { uid=1 }
-        $1 == "fpr" && uid { print $10; exit }
-      '
-    )
-    echo "GPG_NAME is: $GPG_NAME"
     rm -rf "${PUBLIC_KEY_FILE}"
 
     echo "==> RPM binary: ${RPM}"
