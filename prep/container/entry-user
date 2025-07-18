@@ -112,6 +112,7 @@ then
 
     # TODO: Does the repo data need to be rebuilt after the files are changed?
 
+     echo "KEY NAME ID is: ${KEY_NAME}"
      echo "export and import pub key"
      SHORT_ID="${KEY_NAME: -16}"
 
